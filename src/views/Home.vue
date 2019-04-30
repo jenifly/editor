@@ -1,22 +1,23 @@
 <template>
 <div class="main">
-  <div @input="i" @keydown="e" class="editor" ref="editor" contenteditable="true" autocorrect="false" autocomplete="off" spellcheck="false"/>
+  <div class="editor" ref="editor"/>
 </div>
 </template>
 
 <script>
-// import Muya from '@/muya/lib/index.js'
+import Jyzy from "../core"
 export default {
   data () {
     return {
       line: 0,
       selection: '',
       selectLine: '',
+      markdown: ''
     }
   },
   created () {
     this.$nextTick(() => {
-      this.insertEle('div')
+      Jyzy.bindElem(this.$refs.editor)
     })
   },
   mounted () {
@@ -39,7 +40,7 @@ export default {
       if(n=='div'){
         el.className="line"
         if(this.selectLine.nextSibling){
-        this.$refs.editor.insertBefore(el, this.selectLine.nextSibling)
+          this.$refs.editor.insertBefore(el, this.selectLine.nextSibling)
         el.click()
         }else this.$refs.editor.append(el)
       }else{
